@@ -53,7 +53,32 @@ app.get('/math/rectangle/:width/:height', (req, res) => {
 });
 
 
-//TODO3
+// zadanie 4_1.3
+app.get('/math/power/:base/:exponent', (req, res) => {
+  const base = Number(req.params.base);
+  const exponent = Number(req.params.exponent);
+
+  if (isNaN(base) || isNaN(exponent)) {
+    return res.status(400).json({
+      error: "Invalid input"
+    });
+  }
+
+  const result = Math.pow(base, exponent);
+
+  const response = 
+  {
+    base: base,
+    exponent: exponent,
+    result: result
+  };
+
+  if (req.query.root === "true") {
+    response.root = Math.sqrt(base).toFixed(2);
+  }
+
+  res.json(response);
+});
 
 
 const PORT = process.env.PORT || 3000;
